@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>签到</title>
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服是由鸿坤控股集团与亿润投资集团联合打造的一站式资产配置平台，推出多种创新型金融产品和服务，为客户提供专业的资产配置方案。鸿坤金服被评定为国家AAA级信用等级平台、诚信兴商示范单位、国家高新技术企业。">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <!-- 默认依webkit内核渲染页面 -->
+    <meta name="renderer" content="webkit">
+    <!--ios禁止识别电话号-->
+    <meta name="format-detection" content="telephone = no"/>
+    <!--禁止识别邮箱-->
+    <meta name="applicable-device" content="mobile">
+    <!-- 禁止缓存-->
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <!-- 指定标题 -->
+    <meta name="apple-mobile-web-app-title" content="鸿坤金服">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta content="email=no" name="format-detection"/>
+    <link rel="stylesheet" href="css/reset.css">
+    <script src="js/font-size.js"></script>
+    <style>
+        body{background: url("img/bg.png") no-repeat;background-size: 100%;width: 6.4rem;margin: 0 auto;}
+        .logo{width: 3.99rem;margin: 0.68rem auto 0;display: block;}
+        .title{width: 100%;;margin: 0.5rem auto 0.34rem;display: block;}
+        .futitle{width: 4.06rem;margin: 0 auto;display: block;}
+        .odiv{width: 4.45rem;margin: 0.34rem auto 0;;}
+        .div-input{width: 100%;height: 0.77rem;line-height: 0.77rem;padding-left: 0.25rem;font-size: 0.24rem;color: #333333;border-radius: 6px;box-shadow: 0 2px 6px rgba(189,87,4,0.35) inset;margin-bottom: 0.3rem;}
+        .Exclamatory{width: 0.3rem;}
+        #errorTxt{font-size: 0.24rem;color: white;display: inline-block;vertical-align: 0.06rem;margin-left: 0.14rem;;}
+        .yesbutton{margin-top: 0.3rem;margin-bottom:15px;display: block;width: 100%;height: 0.76rem;background: -webkit-linear-gradient(top, #fcc238 65%, #ff9139);background: linear-gradient(top, #fcc238 80%, #ff9139); border-radius: 6px;color: white;font-size: 0.34rem;letter-spacing: 5px;font-weight: bold; -webkit-text-shadow:0 0 0.2em #ff9337; text-shadow:0 0 0.2em #ff9337;-webkit-box-shadow:3px 3px 5px rgba(211,119,74,0.8);box-shadow:3px 3px 5px rgba(211,119,74,0.8)}
+        .yesbutton:active{position: relative;top: 1px;background: #f9b518;}
+        .Error{display: none;}
+        /*弹窗*/
+        .tanchuang{width: 100%;height: 100%;position: fixed;top: 0;left: 0;background-color: rgba(0,0,0,0.5);z-index: 99;display: none;}
+        .TC-Correct{width: 0.6rem;display: block;margin: 0 auto 0.24rem;}
+        .TC-cfqd{font-size: 0.3rem;color: #f39200;text-align: center;display: none;}
+        .TC-close{width: 0.7rem;margin: 0.6rem auto 0;display: block;}
+        .TC-title{height: 0.89rem;width: 4.56rem;background-color: #eeb206;color: white;font-size: 0.28rem;font-weight: bold;border-radius: 6px 6px 0 0;line-height: 0.89rem;text-align: center;box-shadow:0 3px 8px #aba7a7;letter-spacing: 2px;margin: 0 auto;position:relative;z-index: 10;}
+        .TC-suc{width: 4.44rem;padding: 0.3rem 0 0.46rem 0;border-radius: 0 0 6px 6px;background-color: white;;margin: 0 auto;}
+        .TC-zhuti{position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%)}
+        .qdxinxi{text-align: center;font-size: 0.24rem;color: #666666;margin-bottom: 0.15rem;}
+        .TC-qdcg p{text-align: left;font-size: 0.24rem;color: #666666;margin-left: 1.06rem;margin-bottom: 0.15rem;overflow: hidden;  text-overflow:ellipsis;  white-space: nowrap;}
+        .TC-qdcg p:last-child{margin-bottom: 0;}
+        .qdcg-p{font-size: 0.3rem;color: #f39200;text-align: center;margin-bottom: 0.36rem;}
+    </style>
+</head>
+<body>
+<img src="img/logo.png" alt="" class="logo"/>
+<img src="img/title.png" alt="" class="title"/>
+<img src="img/futitle.png" alt="" class="futitle"/>
+
+<div class="odiv">
+    <input type="text" class="div-input" placeholder="请输入您的公司名称" otxt="公司名称不能为空"/>
+    <input type="text" class="div-input" placeholder="请输入您的姓名" otxt="姓名不能为空"/>
+    <input type="tel" class="div-input" placeholder="请输入您的手机号" otxt="手机号输入不正确"/>
+    <input type="text" class="div-input" placeholder="请输入您的职位" style="margin-bottom: 0.21rem;" otxt="职位不能为空"/>
+    <div class="Error"><img src="img/Exclamatory.png" alt="" class="Exclamatory"/><span id="errorTxt">电话不能为空</span></div>
+
+    <button class="yesbutton">签到</button>
+</div>
+
+
+<div class="tanchuang">
+    <div class="TC-zhuti">
+        <div class="TC-title">签到提示</div>
+        <div class="TC-suc">
+            <img src="img/Correct.png" alt="" class="TC-Correct"/>
+            <div class="TC-cfqd">您已签到，感谢您的参与</div>
+            <div class="TC-qdcgzt">
+                <p class="qdcg-p">签到成功，感谢您的参与</p>
+                <p class="qdxinxi">签到信息</p>
+                <div class="TC-qdcg">
+                    <p>公司名称：鸿坤金服鸿坤金服鸿坤金服</p>
+                    <p>姓名：王云庆</p>
+                    <p>电话：12345678911</p>
+                    <p>职位：产品经理</p>
+                </div>
+            </div>
+
+        </div>
+        <img src="img/Close.png" alt="" class="TC-close"/>
+    </div>
+   
+</div>
+<script>
+    var tanchuang=document.getElementsByClassName('tanchuang')[0],//弹窗主体
+       TCclose=document.getElementsByClassName('TC-close')[0],//关闭弹窗
+       qdcgzt=document.getElementsByClassName('TC-qdcgzt')[0],//签到成功div
+       cfqd=document.getElementsByClassName('TC-cfqd')[0],//重复签到div
+       qdcg=document.getElementsByClassName('TC-qdcg')[0],//签到信息div
+       inputjh=document.getElementsByClassName('div-input'),//input集合
+       Error=document.getElementsByClassName('Error')[0],//错误提示
+       yesbutton=document.getElementsByClassName('yesbutton')[0],//签到按钮
+       errorTxt=document.getElementById('errorTxt')  //错误提示txt
+    var chinreg=/[^\u0000-\u00FF]/ /*中文正则*/
+    var telreg = /^1[3|4|5|6|7|8][0-9]\d{4,8}$/;  /*手机验证正则*/
+
+
+
+
+
+
+
+    yesbutton.onclick=function(){//签到按钮点击
+        if(Verification()){//如果前段验证通过，返回true
+            signSuc()
+        }
+    }
+
+
+
+
+
+
+
+    for (var i=0;i<inputjh.length;i++){//失去焦点验证
+        inputjh[i].onblur=function(){
+            Verification(this)
+        }
+    }
+    function onBridgeReady(){
+        WeixinJSBridge.call('closeWindow');
+    }
+    TCclose.onclick=function(){//关闭弹层函数
+        if(typeof WeixinJSBridge == "undefined"){
+            window.location.href="about:blank";
+            window.close();
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        }else{
+            onBridgeReady()
+        }
+    }
+    function fuzhitxt(txt){ //错误提示函数
+        Error.style.display='block'
+        errorTxt.innerHTML=txt
+    }
+    function getAttribute(that){//获取自定义属性
+        return that.getAttribute('otxt')
+    }
+    function Verification(that){  //前段验证函数
+        if(that){
+            if(!that.value){
+                fuzhitxt(getAttribute(that))
+            }else{
+                Error.style.display='none'
+                return true
+            }
+        }else{
+            if(!inputjh[0].value){
+                fuzhitxt(getAttribute(inputjh[0]))
+                return false
+            }else if(!inputjh[1].value){
+                fuzhitxt(getAttribute(inputjh[1]))
+                return false
+            }else if(!telreg.test(inputjh[2].value)){
+                if(!inputjh[2].value){
+                    fuzhitxt('手机号不能为空！')
+                }else{
+                    fuzhitxt('请输入正确的手机号！')
+                }
+                return false
+            }else if(!inputjh[3].value){
+                fuzhitxt(getAttribute(inputjh[3]))
+                return false
+            }else{
+                Error.style.display='none'
+               return true
+
+            }
+        }
+
+    }
+
+
+
+    function signSuc(){//签到成功执行函数
+        tanchuang.style.display='block'
+        cfqd.style.display='none'
+        qdcg.innerHTML=' <p>公司名称：'+inputjh[0].value+'</p> <p>姓名：'+inputjh[1].value+'</p> <p>电话：'+inputjh[2].value+'</p> <p>职位：'+inputjh[3].value+'</p>'
+        qdcgzt.style.display='block'
+    }
+
+
+    function signFail(){//重复签到执行函数
+        tanchuang.style.display='block'
+        cfqd.style.display='block'
+        qdcgzt.style.display='none'
+    }
+
+
+    var obj = {}
+    var oname = 'zhangsan'
+    Object.defineProperty(obj, "oname", {
+        get: function () {
+            console.log('get')
+            return oname
+        },
+        set: function (newVal) {
+            console.log('set')
+            oname = newVal
+        }
+    });
+    console.log(obj.oname)
+
+    // 可以监听到
+    obj.oname = 'lisi'
+    oname='1231'
+   // console.log(oname)
+    console.log(obj.oname)
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
